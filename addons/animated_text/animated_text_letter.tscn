@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/animated_text/examples/default_dynamicfontdata.tres" type="DynamicFontData" id=1]
+[ext_resource path="res://addons/animated_text/animated_text_letter.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=8]
+size = 96
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 1 )
+
+[node name="Letter" type="Node2D"]
+position = Vector2( 136, 468 )
+script = ExtResource( 2 )
+font = SubResource( 8 )
+
+[node name="Label" type="Label" parent="."]
+margin_top = -48.5
+margin_right = 87.0
+margin_bottom = 48.5
+custom_fonts/font = SubResource( 8 )

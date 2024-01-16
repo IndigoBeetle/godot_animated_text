@@ -88,6 +88,7 @@ initial_state = [ {
 "scale": Vector2( 1, 1 )
 } ]
 effects = [ NodePath("Effects") ]
+character_container = NodePath("Characters")
 
 [node name="Generator" type="Node2D" parent="WellDone"]
 script = ExtResource( 8 )
@@ -215,6 +216,7 @@ initial_state = [ {
 "scale": Vector2( 1, 1 )
 } ]
 effects = [ NodePath("Effects") ]
+character_container = NodePath("Characters")
 
 [node name="Generator" type="Node2D" parent="GreatGame"]
 script = ExtResource( 8 )
@@ -369,6 +371,7 @@ initial_state = [ {
 "scale": Vector2( 1, 1 )
 } ]
 effects = [ NodePath("Effects") ]
+character_container = NodePath("Characters")
 
 [node name="Generator" type="Node2D" parent="Almost"]
 script = ExtResource( 8 )
@@ -556,6 +559,7 @@ initial_state = [ {
 "scale": Vector2( 1, 1 )
 } ]
 effects = [ NodePath("Effects") ]
+character_container = NodePath("Characters")
 
 [node name="Characters" type="Node2D" parent="Congratulations"]
 modulate = Color( 0, 0.439216, 1, 1 )

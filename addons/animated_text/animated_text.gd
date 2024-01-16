@@ -15,15 +15,19 @@ export(bool) var loop : bool = true
 export(Array) var initial_state := []
 export(Array, NodePath) var effects : Array = [] setget _set_effects
 export(int) var current_effect : int setget _set_current_effect
+export(NodePath) var character_container : NodePath
 
 
 var _time : float = 0.0
 
+var _character_container : Node2D
 var _effects : Array = []
 var _current_effect : Node2D 
 
 
 func _ready() -> void:
+	if has_node(character_container):
+		_character_container = get_node(character_container)
 	self.effects = effects
 	self.current_effect = current_effect
 
@@ -42,14 +46,16 @@ func _process(delta: float) -> void:
 
 
 func _update_text_at_time(time : float) -> void:
+	if _character_container == null:
+		return
 	var character_duration : float = duration
 	var character_delay : float = 0.0
 	if shift > 0.0:
-		character_duration = (duration / ($Characters.get_child_count() + 1)) / shift
-		character_delay = (duration - character_duration) / ($Characters.get_child_count())
+		character_duration = (duration / (_character_container.get_child_count() + 1)) / shift
+		character_delay = (duration - character_duration) / (_character_container.get_child_count())
 #	print(character_duration, ", ", character_delay)
-	for index in $Characters.get_child_count():
-		var letter : Node2D = $Characters.get_child(index) as Node2D
+	for index in _character_container.get_child_count():
+		var letter : Node2D = _character_container.get_child(index) as Node2D
 		var t2 := min(max(time - (character_delay * index), 0.0), character_duration) / character_duration
 		var t : float = IB_Easing.Sine.easeOut(t2, 0.0, 1.0, 1.0)
 #		print(index, ", ", time, ", ", t2, ", ", t)
@@ -60,9 +66,11 @@ func _update_text_at_time(time : float) -> void:
 
 
 func _set_snapshot(value : bool) -> void:
+	if _character_container == null:
+		return
 	if value:
 		initial_state = []
-		for child in $Characters.get_children():
+		for child in _character_container.get_children():
 			initial_state.append({
 				"position": child.position,
 				"scale": child.scale,
@@ -71,9 +79,11 @@ func _set_snapshot(value : bool) -> void:
 
 
 func _set_reset(value : bool) -> void:
+	if _character_container == null:
+		return
 	if value:
-		for index in $Characters.get_child_count():
-			var child : Node2D = $Characters.get_child(index)
+		for index in _character_container.get_child_count():
+			var child : Node2D = _character_container.get_child(index)
 			var state : Dictionary = initial_state[index]
 			if state:
 				child.position = state["position"]
